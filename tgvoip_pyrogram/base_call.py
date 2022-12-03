@@ -24,7 +24,7 @@ from pyrogram.handlers import RawUpdateHandler
 
 from tgvoip import VoIPController, CallState, CallError, Endpoint, DataSaving, VoIPServerConfig
 from tgvoip.utils import i2b, b2i, check_g
-
+from time import sleep
 
 class DH:
     def __init__(self, dhc: types.messages.DhConfig):
@@ -132,6 +132,8 @@ class VoIPCallBase:
         asyncio.ensure_future(_())
 
         del self.ctrl
+        # prevent from blocking all threads in some cases
+        sleep(0)
         self.ctrl = None
 
         for handler in self.call_ended_handlers:
