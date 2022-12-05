@@ -131,9 +131,8 @@ class VoIPCallBase:
                 pass
         asyncio.ensure_future(_())
 
+        self.ctrl.stop()
         del self.ctrl
-        # prevent from blocking all threads in some cases
-        sleep(0)
         self.ctrl = None
 
         for handler in self.call_ended_handlers:
